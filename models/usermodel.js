@@ -6,7 +6,7 @@ var router = express.Router();
 
 async function connectDB() {
     try {
-        await mongoose.connect("mongodb://127.0.0.1:27017/mernstack")
+        await mongoose.connect("mongodb+srv://ahsanch445:ahsanchrr@cluster0.lgme4dm.mongodb.net/?retryWrites=true&w=majority")
         console.log("Database connected successfully")
 
         const fooddata = await mongoose.connection.db.collection("fooddata").find({}).toArray()
