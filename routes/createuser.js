@@ -7,7 +7,7 @@ const users = require("../models/user")
 const cores = require("cors")
 const   Order = require ("../models/Order")
 const bodyParser = require('body-parser');
-router.use(cors());
+router.use(cores());
 passport.use(new localpass(users.authenticate()))
 router.use(bodyParser.json());
 
