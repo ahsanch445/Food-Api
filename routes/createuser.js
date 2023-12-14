@@ -7,7 +7,11 @@ const users = require("../models/user")
 const cores = require("cors")
 const   Order = require ("../models/Order")
 const bodyParser = require('body-parser');
-router.use(cores())
+router.use(cors({
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST'], // Add the HTTP methods you need
+    allowedHeaders: ['Content-Type', 'Authorization'], // Add the allowed headers
+  }));
 passport.use(new localpass(users.authenticate()))
 router.use(bodyParser.json());
 
