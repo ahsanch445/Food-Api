@@ -7,7 +7,7 @@ var expressSession = require("express-session")
 var passport = require("passport")
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var user = require("./models/user")
+var user = require("./models/usermodel")
 var createdUser = require("./routes/createuser")
 const cores = require("cors")
 

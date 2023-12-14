@@ -3,12 +3,12 @@ const passport = require("passport")
 const router = express.Router()
 const localpass= require("passport-local")
 const usermodel = require("../models/usermodel")
-const users = require("../models/user")
+
 const cores = require("cors")
 const   Order = require ("../models/Order")
 const bodyParser = require('body-parser');
 router.use(cores())
-passport.use(new localpass(users.authenticate()))
+passport.use(new localpass(usermodel.authenticate()))
 router.use(bodyParser.json());
 
 // Updated registration route
@@ -21,14 +21,14 @@ router.post("/register", async (req, res) => {
           return res.status(400).json({ message: 'Email is required' });
       }
 
-      const newUser = new users({
+      const newUser = new usermodel({
         username:username,
           email: email,
           fullname: fullname,
           // You may add other necessary fields here
       });
 
-      users.register(newUser, password, async (err, user) => {
+      usermodel.register(newUser, password, async (err, user) => {
           if (err) {
               console.error('Registration failed:', err);
               return res.status(500).json({ message: 'Registration failed' });
