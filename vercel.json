@@ -6,16 +6,29 @@
    ],
    "routes": [
      {
-       "src": "/api/your-endpoint", 
-       "methods": ["GET"],
+       "src": "/login", 
+       "methods": ["POST"],
        "dest": "/app.js",
-       "config": {
+       "headers": {
          "api": {
            "timeout": 30 
          }
        }
      },
-     { "src": "/(.*)", "dest": "/app.js" }
+     {
+       "src": "/register", 
+       "methods": ["POST"],
+       "dest": "/app.js",
+       "headers": {
+         "api": {
+           "timeout": 20 
+         }
+       }
+     },
+     {
+       "src": "/(.*)", 
+       "dest": "/app.js"
+     }
    ]
  }
  
