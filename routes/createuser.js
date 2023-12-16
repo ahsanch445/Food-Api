@@ -7,28 +7,26 @@ const usermodel = require("../models/usermodel")
 const cores = require("cors")
 const   Order = require ("../models/Order")
 const bodyParser = require('body-parser');
-router.use(cores({
-    origin: 'http://localhost:3000', // Allow requests from this origin
-    methods: 'GET,POST', // Allow specific HTTP methods
-    allowedHeaders: 'Content-Type,Authorization', // Allow specific headers
-}))
-passport.use(new localpass(usermodel.authenticate()))
+router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
+
+
+router.use(cores())
+passport.use(new localpass(usermodel.authenticate()))
+
 
 // Updated registration route
 router.post("/register", async (req, res) => {
   try {
       const { fullname, username,email, password } = req.body;
-
+      console.log(req.body); 
       // Check if the 'email' field is provided
-      if (!email) {
-          return res.status(400).json({ message: 'Email is required' });
-      }
 
       const newUser = new usermodel({
         username:username,
           email: email,
           fullname: fullname,
+          
           // You may add other necessary fields here
       });
 
