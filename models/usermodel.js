@@ -3,7 +3,7 @@ const plm = require("passport-local-mongoose");
 
 
 
-const uri = "mongodb://ahsan:1pL6d3IIA0QLVV1l@ac-txmjddb-shard-00-00.izszlxx.mongodb.net:27017,ac-txmjddb-shard-00-01.izszlxx.mongodb.net:27017,ac-txmjddb-shard-00-02.izszlxx.mongodb.net:27017/foodi?ssl=true&replicaSet=atlas-b3wpp9-shard-0&authSource=admin&retryWrites=true&w=majority";
+const uri = "mongodb://ch:Dx1UdK4BFB8xazJd@ac-yis9rym-shard-00-00.u6xbqf1.mongodb.net:27017,ac-yis9rym-shard-00-01.u6xbqf1.mongodb.net:27017,ac-yis9rym-shard-00-02.u6xbqf1.mongodb.net:27017/ffood?ssl=true&replicaSet=atlas-13hypp-shard-0&authSource=admin&retryWrites=true&w=majority";
 
 async function connectDB() {
     try {
