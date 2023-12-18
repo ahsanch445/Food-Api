@@ -10,12 +10,12 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var user = require("./models/usermodel")
 var createdUser = require("./routes/createuser")
-const cores = require("cors")
+const cors = require("cors")
 const MongoDBStor = require('connect-mongodb-session')(session);
 var connectDB = require("./models/mongodb")
 var app = express();
-app.use(cores({
-  origin: 'https://mern-food-mu.vercel.app/', // Replace with your frontend URL
+app.use(cors({
+  origin: 'https://mern-food-mu.vercel.app', // Replace with your frontend URL
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   preflightContinue: false,
