@@ -15,7 +15,7 @@ const MongoDBStor = require('connect-mongodb-session')(session);
 var connectDB = require("./models/mongodb")
 var app = express();
 app.use(cores({
-  origin: 'https://yourfrontenddomain.com', // Replace with your frontend URL
+  origin: 'https://mern-food-mu.vercel.app/', // Replace with your frontend URL
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   preflightContinue: false,
