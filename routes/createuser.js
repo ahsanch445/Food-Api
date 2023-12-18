@@ -52,13 +52,14 @@ router.post("/login", passport.authenticate('local'), (req, res) => {
 });
 
 router.post('/foodData', async (req, res) => {
+    // Set CORS headers for this specific route
     res.set({
         'Access-Control-Allow-Origin': 'http://localhost:3000',
         'Access-Control-Allow-Methods': 'GET, POST, OPTIONS', // Add other allowed methods if needed
         'Access-Control-Allow-Headers': 'Content-Type, Authorization', // Add other allowed headers if needed
         'Access-Control-Allow-Credentials': true, // Allow credentials
-      });
-   
+    });
+
     try {
         // Call the function to fetch data from MongoDB
         await fetchDataFromMongoDB();
@@ -68,13 +69,13 @@ router.post('/foodData', async (req, res) => {
         const categoryData = global.categorydata;
 
         // Respond with the fetched data or perform further operations
-        res.send({ foodData, categoryData });
+        res.status(200).json({ foodData, categoryData });
     } catch (error) {
         console.error(error.message);
         res.status(500).json({ message: "Server Error" });
     }
-    next();
 });
+
 
 router.post('/orderData', async (req, res) => {
   try {
