@@ -11,7 +11,7 @@ var usersRouter = require('./routes/users');
 var user = require("./models/usermodel")
 var createdUser = require("./routes/createuser")
 const cores = require("cors")
-const MongoDBStore = require('connect-mongodb-session')(session);
+const MongoDBStor = require('connect-mongodb-session')(session);
 var connectDB = require("./models/mongodb")
 var app = express();
 app.use(cores())
@@ -23,7 +23,7 @@ const uri = "mongodb://ch:Dx1UdK4BFB8xazJd@ac-yis9rym-shard-00-00.u6xbqf1.mongod
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-const store = new MongoDBStore({
+const store = new MongoDBStor({
   uri: uri,
   collection: 'sessions'
 });
