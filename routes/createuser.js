@@ -11,7 +11,7 @@ router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 
 
-router.use(cores())
+router.use(cores({ origin: '*' }));
 passport.use(new localpass(usermodel.authenticate()))
 
 
@@ -53,6 +53,18 @@ router.post("/login", passport.authenticate('local'), (req, res) => {
 
 
 
+router.post('/foodData', async (req, res) => {
+    try {
+        // console.log( JSON.stringify(global.foodData))
+        // const userId = req.user.id;
+        // await database.listCollections({name:"food_items"}).find({});
+        res.send([  global.fooddata,global.categorydata])
+    } catch (error) {
+        console.error(error.message)
+        res.send("Server Error")
+
+    }
+})
 
 
 router.post('/orderData', async (req, res) => {
