@@ -15,6 +15,13 @@ router.use(cores({origin: 'https://mern-food-mu.vercel.app', // Replace with you
 credentials: true, }));
 passport.use(new localpass(usermodel.authenticate()))
 
+router.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'https://mern-food-ahsanch445s-projects.vercel.app');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    next();
+});
 
 // Updated registration route
 router.post("/register", async (req, res) => {
