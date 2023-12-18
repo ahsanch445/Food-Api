@@ -3,7 +3,7 @@ const passport = require("passport")
 const router = express.Router()
 const localpass= require("passport-local")
 const usermodel = require("../models/usermodel")
-
+const  fetchDataFromMongoDB = require("../models/data")
 const cores = require("cors")
 const   Order = require ("../models/Order")
 const bodyParser = require('body-parser');
@@ -55,13 +55,16 @@ router.post("/login", passport.authenticate('local'), (req, res) => {
 
 router.post('/foodData', async (req, res) => {
     try {
+        const { fooddata, categorydata } = await fetchDataFromMongoDB();
         
-        res.send([global.fooddata,global.categorydata])
+        const responseData = { fooddata, categorydata };
+      
+        // Send the combined data as a single parameter
+        res.send(responseData);
     } catch (error) {
-        console.error(error.message)
-        res.send("Server Error")
-
+        console.error("Error:", error.message);
     }
+
 })
 
 
