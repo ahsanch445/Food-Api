@@ -3,7 +3,7 @@ const passport = require("passport")
 const router = express.Router()
 const localpass= require("passport-local")
 const usermodel = require("../models/usermodel")
-const  fetchDataFromMongoDB = require("../models/data")
+const fetchDataFromMongoDB= require("../models/data")
 const cores = require("cors")
 const   Order = require ("../models/Order")
 const bodyParser = require('body-parser');
@@ -51,22 +51,22 @@ router.post("/login", passport.authenticate('local'), (req, res) => {
   res.status(200).json({ message: 'Login successful' });
 });
 
-
-
 router.post('/foodData', async (req, res) => {
     try {
-        const { fooddata, categorydata } = await fetchDataFromMongoDB();
-        
-          const responseData = { fooddata, categorydata };
-      
-        // Send the combined data as a single parameter
-        res.send(responseData);
+        // Call the function to fetch data from MongoDB
+        await fetchDataFromMongoDB();
+
+        // Access the fetched data from global variables or modify as needed
+        const foodData = global.fooddata;
+        const categoryData = global.categorydata;
+
+        // Respond with the fetched data or perform further operations
+        res.send({ foodData, categoryData });
     } catch (error) {
-        console.error("Error:", error.message);
+        console.error(error.message);
+        res.status(500).json({ message: "Server Error" });
     }
-
-})
-
+});
 
 router.post('/orderData', async (req, res) => {
   try {

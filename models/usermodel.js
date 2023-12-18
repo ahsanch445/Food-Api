@@ -31,4 +31,3 @@ const UserModel = mongoose.model("user", userschema);
 module.exports = UserModel;
 
 // Call the function to connect to the database
-
