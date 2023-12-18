@@ -11,7 +11,8 @@ router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 
 
-router.use(cores({ origin: '*' }));
+router.use(cores({origin: 'https://mern-food-mu.vercel.app', // Replace with your client's URL
+credentials: true, }));
 passport.use(new localpass(usermodel.authenticate()))
 
 
