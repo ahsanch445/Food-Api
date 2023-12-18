@@ -11,7 +11,7 @@ router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 
 
-router.use(cores({ origin: '*' }));
+router.use(cores({  origin: 'http://localhost:3000',}));
 passport.use(new localpass(usermodel.authenticate()))
 
 
