@@ -61,7 +61,7 @@ router.post('/foodData', async (req, res) => {
     });
 
     try {
-        // Call the function to fetch data from MongoDB
+        
         await fetchDataFromMongoDB();
 
         // Access the fetched data from global variables or modify as needed
