@@ -57,7 +57,7 @@ router.post('/foodData', async (req, res) => {
     try {
         const { fooddata, categorydata } = await fetchDataFromMongoDB();
         
-        const responseData = { fooddata, categorydata };
+          const responseData = { fooddata, categorydata };
       
         // Send the combined data as a single parameter
         res.send(responseData);

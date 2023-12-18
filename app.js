@@ -8,19 +8,44 @@ var passport = require("passport")
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var user = require("./models/usermodel")
+const session = require('express-session');
 var createdUser = require("./routes/createuser")
 const cores = require("cors")
-
+const MongoDBStore = require('connect-mongodb-session')(session);
+var connectDB = require("./models/mongodb")
 var app = express();
 app.use(cores())
+
+const uri = "mongodb://ch:Dx1UdK4BFB8xazJd@ac-yis9rym-shard-00-00.u6xbqf1.mongodb.net:27017,ac-yis9rym-shard-00-01.u6xbqf1.mongodb.net:27017,ac-yis9rym-shard-00-02.u6xbqf1.mongodb.net:27017/ffood?ssl=true&replicaSet=atlas-13hypp-shard-0&authSource=admin&retryWrites=true&w=majority";
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.use(expressSession({
-  resave:false,
-  saveUninitialized:false,
-  secret:"hello"
+
+const store = new MongoDBStore({
+  uri: uri,
+  collection: 'sessions'
+});
+
+// Catch session store errors
+store.on('error', function(error) {
+  console.error('Session store error:', error);
+});
+
+// Use express-session middleware with MongoDBStore
+app.use(session({
+  secret: 'your-secret-key',
+  resave: false,
+  saveUninitialized: true,
+  store: store,
+  cookie: { maxAge: 1000 * 60 * 60 * 24 }
 }));
+
+// Establish database connection by calling the connectDB function from the db.js module
+connectDB(uri);
+
+
 app.use(passport.initialize())
 app.use(passport.session())
 passport.serializeUser(user.serializeUser())
