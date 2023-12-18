@@ -16,6 +16,25 @@ var connectDB = require("./models/mongodb")
 var app = express();
 app.use(cores())
 
+
+app.use((req, res, next) => {
+  // Replace 'https://yourfrontenddomain.com' with your actual frontend URL
+  res.setHeader('Access-Control-Allow-Origin', 'https://mern-food-mu.vercel.app');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  
+  if (req.method === 'OPTIONS') {
+      // Handling preflight request
+      res.sendStatus(200);
+  } else {
+      // Allowing the request to reach the routes
+      next();
+  }
+});
+
+
+
 const uri = "mongodb://ch:Dx1UdK4BFB8xazJd@ac-yis9rym-shard-00-00.u6xbqf1.mongodb.net:27017,ac-yis9rym-shard-00-01.u6xbqf1.mongodb.net:27017,ac-yis9rym-shard-00-02.u6xbqf1.mongodb.net:27017/ffood?ssl=true&replicaSet=atlas-13hypp-shard-0&authSource=admin&retryWrites=true&w=majority";
 
 
