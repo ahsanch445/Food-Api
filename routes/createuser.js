@@ -4,15 +4,13 @@ const router = express.Router()
 const localpass= require("passport-local")
 const usermodel = require("../models/usermodel")
 const fetchDataFromMongoDB= require("../models/data")
-const cores = require("cors")
+
 const   Order = require ("../models/Order")
 const bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 
 
-router.use(cores({origin: 'https://mern-food-mu.vercel.app', // Replace with your client's URL
-credentials: true, }));
 passport.use(new localpass(usermodel.authenticate()))
 
 
@@ -53,10 +51,7 @@ router.post("/login", passport.authenticate('local'), (req, res) => {
 });
 
 router.post('/foodData', async (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', 'https://mern-food-mu.vercel.app');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
+
 
     try {
         // Call the function to fetch data from MongoDB

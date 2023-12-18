@@ -14,24 +14,16 @@ const cores = require("cors")
 const MongoDBStor = require('connect-mongodb-session')(session);
 var connectDB = require("./models/mongodb")
 var app = express();
-app.use(cores())
+app.use(cores({
+  origin: 'https://yourfrontenddomain.com', // Replace with your frontend URL
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+}));
 
 
-app.use((req, res, next) => {
-  // Replace 'https://yourfrontenddomain.com' with your actual frontend URL
-  res.setHeader('Access-Control-Allow-Origin', 'https://mern-food-mu.vercel.app');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  
-  if (req.method === 'OPTIONS') {
-      // Handling preflight request
-      res.sendStatus(200);
-  } else {
-      // Allowing the request to reach the routes
-      next();
-  }
-});
+
 
 
 
