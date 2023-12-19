@@ -62,7 +62,7 @@ router.post('/foodData', async (req, res) => {
         const categoryData = global.categorydata;
 
         // Respond with the fetched data or perform further operations
-        res.send({ foodData, categoryData });
+        res.send([ foodData, categoryData ]);
     } catch (error) {
         console.error(error.message);
         res.status(500).json({ message: "Server Error" });
