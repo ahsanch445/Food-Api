@@ -14,16 +14,16 @@ const cors = require("cors")
 const MongoDBStor = require('connect-mongodb-session')(session);
 var connectDB = require("./models/mongodb")
 var app = express();
- app.use(cors({
-  origin: 'https://mern-food-mu.vercel.app', // Replace with your frontend URL
-   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-   credentials: true,
-  preflightContinue: false,
-  optionsSuccessStatus: 204,
- }));
+//  app.use(cors({
+//   origin: 'https://mern-food-mu.vercel.app', // Replace with your frontend URL
+//    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//    credentials: true,
+//   preflightContinue: false,
+//   optionsSuccessStatus: 204,
+//  }));
 
 
-app.use(cors())
+ app.use(cors())
 
 
 

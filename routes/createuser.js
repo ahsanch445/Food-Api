@@ -11,7 +11,10 @@ router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 
 
-passport.use(new localpass(usermodel.authenticate()))
+passport.use(new localpass({
+    usernameField: 'email',
+    usernameQueryFields: ['email']
+  }, usermodel.authenticate()));
 
 
 // Updated registration route
@@ -19,14 +22,13 @@ router.post("/register", async (req, res) => {
   try {
       const { fullname, username,email, password } = req.body;
       console.log(req.body); 
-      // Check if the 'email' field is provided
+    
 
       const newUser = new usermodel({
         username:username,
           email: email,
           fullname: fullname,
-          
-          // You may add other necessary fields here
+         
       });
 
       usermodel.register(newUser, password, async (err, user) => {
@@ -54,14 +56,12 @@ router.post('/foodData', async (req, res) => {
 
 
     try {
-        // Call the function to fetch data from MongoDB
+    
         await fetchDataFromMongoDB();
 
-        // Access the fetched data from global variables or modify as needed
         const foodData = global.fooddata;
         const categoryData = global.categorydata;
 
-        // Respond with the fetched data or perform further operations
         res.send([ foodData, categoryData ]);
     } catch (error) {
         console.error(error.message);
@@ -75,19 +75,19 @@ router.post('/orderData', async (req, res) => {
       data.splice(0, 0, { Order_date: req.body.order_date });
 
   
-      let existingUser = await Order.findOne({ 'username': req.body.username });
+      let existingUser = await Order.findOne({ 'email': req.body.email });
 
       if (!existingUser) {
         
           await Order.create({
-              username: req.body.username,
+              email: req.body.email,
               order_data: [data]
           });
           res.json({ success: true, message: 'New user created' });
       } else {
       
           await Order.findOneAndUpdate(
-              { username: req.body.username },
+              { email: req.body.email},
               { $push: { order_data: data } }
           );
           res.json({ success: true, message: 'Data updated for existing user' });
@@ -102,8 +102,8 @@ router.post('/orderData', async (req, res) => {
 router.post('/myOrderData', async (req, res) => {
     try {
     
-        console.log(req.body.username)
-        let eId = await Order.findOne({ 'username': req.body.username })
+        console.log(req.body.email)
+        let eId = await Order.findOne({ 'email': req.body.email })
       
         res.json({orderData:eId})
     } catch (error) {

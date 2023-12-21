@@ -24,7 +24,9 @@ const userschema = mongoose.Schema({
 });
 
 // Apply the passport-local-mongoose plugin
-userschema.plugin(plm);
+userschema.plugin(plm,{
+    usernameField: 'email'
+});
 
 // Create and export the model
 const UserModel = mongoose.model("user", userschema);
