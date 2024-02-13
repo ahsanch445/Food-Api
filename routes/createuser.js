@@ -4,7 +4,7 @@ const router = express.Router()
 const localpass= require("passport-local")
 const usermodel = require("../models/usermodel")
 const fetchDataFromMongoDB= require("../models/data")
- require("../models/mongodb")
+const {connectDB} = require("../models/mongodb")
 const   Order = require ("../models/Order")
 const bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({ extended: true }));
@@ -63,7 +63,7 @@ router.post('/foodData', async (req, res) => {
 
 
     try {
-    
+      await connectDB()
         await fetchDataFromMongoDB();
 
         const foodData = global.fooddata;
