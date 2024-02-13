@@ -12,7 +12,7 @@ var user = require("./models/usermodel")
 var createdUser = require("./routes/createuser")
 const cors = require("cors")
 const MongoDBStor = require('connect-mongodb-session')(session);
-var connectDB = require("./models/mongodb")
+var {connectDB} = require("./models/mongodb")
 var app = express();
 //  app.use(cors({
 //   origin: 'https://mern-food-mu.vercel.app', // Replace with your frontend URL
@@ -55,6 +55,7 @@ app.use(session({
 
 // Establish database connection by calling the connectDB function from the db.js module
 connectDB(uri);
+
 
 
 app.use(passport.initialize())
